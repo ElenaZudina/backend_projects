@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheese Store</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <header>
+    <h1>"World of Cheese" Store</h1>
+  </header>
+
+  <main>
+    <!-- Section for adding a new cheese -->
+    <section class="add-cheese-section">
+      <h2>Add a New Cheese</h2>
+      <form id="add-cheese-form">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <textarea id="category" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="price">Price (€):</label>
+          <input type="number" id="price" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="image">Image:</label>
+          <input type="text" id="image" required>
+        </div>
+        <button type="submit">Add Cheese</button>
+      </form>
+    </section>
+
+    <!-- Section for displaying the cheese list -->
+    <section class="cheese-list-section">
+      <h2>Cheese Catalog</h2>
+      <div id="cheese-list" class="cheese-grid">
+        <!-- Cheese cards will be inserted here by JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 World of Cheese</p>
+  </footer>
+
+  <!-- Edit Cheese Modal -->
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Edit Cheese</h2>
+      <form id="edit-cheese-form">
+        <input type="hidden" id="edit-cheese-id">
+        <div class="form-group">
+          <label for="edit-name">Name:</label>
+          <input type="text" id="edit-name" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-category">Category:</label>
+          <textarea id="edit-category" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="edit-description">Description:</label>
+          <textarea id="edit-description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="edit-price">Price (€):</label>
+          <input type="number" id="edit-price" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-image">Image:</label>
+          <input type="text" id="edit-image" required>
+        </div>
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Connect our JavaScript file -->
+  <script src="/app.js"></script>
+</body>
+</html>
