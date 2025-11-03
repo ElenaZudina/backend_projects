@@ -1,1 +1,0 @@
-# cheese_store_graphql
