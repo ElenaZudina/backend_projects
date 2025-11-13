@@ -11,16 +11,26 @@ const port = 3000;
 app.use(express_1.default.static(path_1.default.join(__dirname, '..')));
 app.use(express_1.default.json({ limit: '10mb' }));
 app.post('/save', (req, res) => {
-    const { image } = req.body;
+    const { image, name } = req.body;
     const base64Data = image.replace(/^data:image\/png;base64,/, '');
-    const imageName = `drawing-${Date.now()}.png`;
-    const imagePath = path_1.default.join(__dirname, '..', 'img', imageName);
+    const imgDir = path_1.default.join(__dirname, '..', 'img'); // путь к папке img
+    let safeName = name.replace(/[^a-z0-9а-яё\s_-]/gi, ''); // убираем странные символы
+    let imageName = `${safeName}.png`;
+    let counter = 1;
+    //const imageName = `${safeName}-${Date.now()}.png`; // уникальное имя файла
+    // const imagePath = path.join(__dirname, '..', 'img', imageName);
+    while (fs_1.default.existsSync(path_1.default.join(imgDir, imageName))) {
+        imageName = `${safeName}(${counter}).png`;
+        counter++;
+    }
+    const imagePath = path_1.default.join(imgDir, imageName);
     fs_1.default.writeFile(imagePath, base64Data, 'base64', (err) => {
         if (err) {
             console.log(err);
             return res.status(500).json({ message: 'Failed to save image' });
         }
-        res.json({ message: 'Image saved successfully' });
+        res.json({ message: 'Image saved successfully', file: imageName });
+        //res.json({message: 'Image saved successfully', displayName: safeName, file: imageName });
     });
 });
 app.get('/images', (req, res) => {

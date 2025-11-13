@@ -19,6 +19,7 @@ const newBtn = document.getElementById('newBtn');
 const saveBtn = document.getElementById('saveBtn');
 const clearGalleryBtn = document.getElementById('clearGalleryBtn');
 const gallery = document.getElementById('gallery');
+const drawingNameInput = document.getElementById('name');
 // Устанавливаем начальные значение
 let isDrawing = false;
 let lastX = 0;
@@ -27,6 +28,7 @@ let currentColor = '#000000';
 // Функции для очистки холста
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawingNameInput.value = '';
 }
 // Функция для рисования
 function draw(e) {
@@ -71,15 +73,22 @@ brushSize.addEventListener('input', (e) => {
 function saveDrawing() {
     return __awaiter(this, void 0, void 0, function* () {
         const image = canvas.toDataURL('image/png');
+        const name = drawingNameInput.value.trim() || 'Untitled';
+        //const imageName = `${name}.png`;
+        if (ctx.getImageData(0, 0, canvas.width, canvas.height).data.every(v => v === 0)) {
+            alert('Нарисуйте что-нибудь перед сохранением!');
+            return;
+        }
         const response = yield fetch('/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ image })
+            body: JSON.stringify({ image, name })
         });
         const data = yield response.json();
         console.log(data.message);
+        clearCanvas();
         loadGallery(); // перезагружаем галерею
     });
 }
@@ -122,8 +131,12 @@ function loadGallery() {
             deleteBtn.className = 'delete-btn';
             deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
             deleteBtn.addEventListener('click', () => deleteDrawing(image));
+            const nameElement = document.createElement('p');
+            nameElement.textContent = image.replace(/\.png$/i, '');
+            nameElement.className = 'image-name';
             imgContainer.appendChild(imgElement);
             imgContainer.appendChild(deleteBtn);
+            imgContainer.appendChild(nameElement);
             gallery.appendChild(imgContainer);
         });
     });
