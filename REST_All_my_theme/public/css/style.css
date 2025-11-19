@@ -1,0 +1,36 @@
+/* Небольшие стили для карточек и адаптивности */
+body { background: #f6f7fb; }
+.card { border: none; background-color: #4fd1b5; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.card:hover {
+  transform: translateY(-10px); /* Подпрыгивание */
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Более яркая тень при наведении */
+}
+.object-fit-cover { object-fit: cover; }
+
+/* Кастомные цвета для кнопок внутри карточек */
+
+.btn.btn-success {
+    background-color: #2a9d8f;
+  color: #fff;
+}
+.card .btn-group .btn-outline-primary {
+  color:black;
+  background-color: #fafcfc;
+  border-color: #fafcfc;
+}
+.card .btn-group .btn-outline-primary:hover {
+  background-color: #2a9d8f;
+  color: #fff;
+}
+
+.card .btn-group .btn-outline-danger {
+  color: #e63946;
+  background-color: #f7a8af;
+  border-color: #fafcfc;
+}
+.card .btn-group .btn-outline-danger:hover {
+  background-color: #e63946;
+  color: #fff;
+  border-color: #e63946;
+}
+
